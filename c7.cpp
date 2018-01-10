@@ -38,7 +38,10 @@ int main(int argc, char** argv) {
 
 	cout << "buf = " << buf << " tmp = " << tmp << endl;
 	
-	delete[] buf;
-		
+	delete[] buf; //delete buf : wrong, self define object must use delete[]
+	
+	int* pi = new int[10];
+	delete pi; //delete[] pi : same because int doesn't have dtor
+			
 	return 0;
 }
