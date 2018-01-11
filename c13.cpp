@@ -1,10 +1,13 @@
 #include <iostream>
 
+using namespace std;
+
 class Airplane {
 
 private:
 	struct AirplaneRep {
 		unsigned long miles;
+		unsigned long miles2;
 		char type;
 	};
 
@@ -87,12 +90,22 @@ void Airplane::operator delete (void* ptr, size_t size) {
 	headOfFreeList = carcass;
 }
 
+
+struct data { 
+	long test3;
+	long test4;
+	char test;
+};
+	
+
 int main (int argc, char** argv) {
 
 	cout << sizeof(Airplane) << endl;
 	cout << sizeof(unsigned long) << endl;
 	cout << sizeof(short) << endl;
-
+	
+	cout << sizeof(data) << endl;
+	
 	size_t const N = 100;
 	Airplane* P[N];
 
@@ -100,16 +113,33 @@ int main (int argc, char** argv) {
 		P[i] = new Airplane;
 	}
 
-	p[1]->set(1000, 'A');
-	p[5]->set(2000, 'B');
-	p[9]->set(5000, 'C');
+	P[1]->set(1000, 'A');
+	P[5]->set(2000, 'B');
+	P[9]->set(5000, 'C');
 
 	for(int i = 0; i < 10; i++) {
-		cout << p[i] << endl;
+		cout << P[i] << endl;
 	}
 
 	for(int i = 0; i < N; i++) {
-		delete p[i];
+		delete P[i];
+	}
+	
+	//2.global
+	for(int i = 0; i < N; i++) {
+		P[i] = ::new Airplane;
+	}
+
+	P[1]->set(1000, 'A');
+	P[5]->set(2000, 'B');
+	P[9]->set(5000, 'C');
+
+	for(int i = 0; i < 10; i++) {
+		cout << P[i] << endl;
+	}
+
+	for(int i = 0; i < N; i++) {
+		::delete P[i];
 	}
 
 	return 0;
