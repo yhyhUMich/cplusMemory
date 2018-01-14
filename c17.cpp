@@ -1,9 +1,14 @@
 #include <iostream>
 #include <vector>
-#include <allocator>
-#include <ext\poll_allocator.h>
+#include <memory>
+#include <ext/pool_allocator.h>
 
 using namespace std;
+
+class test {
+	int64_t a;
+	int32_t b;	
+};
 
 template <typename Alloc> 
 void cookie_test(Alloc alloc, size_t n) {
@@ -23,13 +28,13 @@ void cookie_test(Alloc alloc, size_t n) {
 
 int main (int argc, char** argv) {
 
-	cout << sizeof(int) << endl;
+	cout << sizeof(int64_t) << endl;
 
 	vector<int, __gnu_cxx::__pool_alloc<int>> vecPool;
-	cookie_test(__gnu_cxx::__pool_alloc<int>(), 1);
+	cookie_test(__gnu_cxx::__pool_alloc<int64_t>(), 1);
 
 	vector<int, allocator<int>> vec;
-	cookie_test(allocator<int>(), 1);
+	cookie_test(allocator<test>(), 1);
 
 	return 0;
 }
